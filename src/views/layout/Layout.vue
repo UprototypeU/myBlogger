@@ -14,7 +14,7 @@
             <h1 class="project-name">{{blogTitle}}</h1>
             <h2 class="project-tagline">{{blogDescribe}}</h2>
             <a :href="'https://github.com/'+githubUsername" class="btn" target="_blank">GitHub主页</a>
-            <a href="https://github.com/GitHub-Laziji/vblog" class="btn" target="_blank" v-if="!mini">博客源码</a>
+            <a href="https://github.com/UprototypeU/myBlogger" class="btn" target="_blank" v-if="!mini">博客源码</a>
         </section>
         <div style="position:relative;  z-index:2;margin: auto;margin-top:-30px;width:64rem;">
             <el-card shadow="never" :body-style="{ padding: '0px' }">
@@ -26,10 +26,10 @@
                                 <el-menu-item index="#githubHome">github主页</el-menu-item>
                                 <el-menu-item index="#blog">其他博客</el-menu-item>
                             </el-submenu>
-                            <el-submenu index="#webSites" v-if="webSites.length>0">
+                            <!-- <el-submenu index="#webSites" v-if="webSites.length>0">
                                 <template slot="title">其他网站</template>
                                 <el-menu-item :index="'#webSites-'+index" v-for="(item,index) in webSites" :key="'#webSites'+index">{{item.name}}</el-menu-item>
-                            </el-submenu>
+                            </el-submenu> -->
                         </el-menu>
                     </el-col>
                     <el-col :span="8" style="text-align: center;padding: 12px 0px 0px 10px">
@@ -173,9 +173,9 @@
                 temp["size"] = this.$util.randomInt(20, 40)
                 this.randomIcon.push(temp)
             }
+            this.$store.dispatch("Authentication", '95c1144d3c36d2228862e35c06bcfeeee6e1f803')            
         },
         created() {
-
         },
         methods: {
             selectTopbar(index) {

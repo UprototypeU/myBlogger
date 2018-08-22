@@ -131,6 +131,11 @@
                 })
             },
             goAdd() {
+                this.$message({
+                    message: '不好意思，游客暂无权限',
+                    type: 'warning'
+                })
+                return
                 if (!this.token) {
                     this.$message({
                         message: '请绑定有效的Token',
