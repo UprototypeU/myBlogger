@@ -49,7 +49,6 @@
         mounted() {
             this.loading = true
             this.blog.id = this.$route.params.id
-            // console.log(this.$route.params.id)
             GistApi.single(this.blog.id).then((response) => {
                 let result = response.data
                 for (let key in result.files) {
@@ -58,7 +57,6 @@
                     this.blog['description'] = result['description']
                     this.blog['createTime'] = this.$util.utcToLocal(result['created_at'])
                     this.blog['updateTime'] = this.$util.utcToLocal(result['updated_at'])
-                    // console.log(JSON.stringify(this.blog))
                     break
                 }
             }).then(() => this.loading = false)

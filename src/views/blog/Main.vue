@@ -4,7 +4,7 @@
             <el-input placeholder="请输入关键字" v-model="searchKey" clearable style="width: 300px"></el-input>
             <el-button @click="search" icon="el-icon-search" style="margin-left: 10px" circle plain></el-button>
             <el-button @click="$share()" style="margin-left: 10px" icon="el-icon-share" type="warning" plain circle></el-button>
-            <el-button type="primary" icon="el-icon-edit" round plain style="float: right;" @click="goAdd">写博文</el-button>
+            <el-button type="primary" icon="el-icon-edit" round plain style="float: right;" @click="regAdd('1')">写博文</el-button>
         </el-card>
 
         <div v-if="blogs&&blogs.length>0">
@@ -22,7 +22,7 @@
                             <div style="text-align: right;">
                                 <el-button @click="$share('/user/blog/details/'+item.id)" style="padding: 3px 0" type="text" icon="el-icon-share"></el-button>
                                 <el-button @click="editBlog(index)" style="padding: 3px 0" type="text" icon="el-icon-edit" v-if="token"></el-button>
-                                <el-button @click="deleteBlog(index)" style="padding: 3px 0" type="text" icon="el-icon-delete" v-if="token"></el-button>
+                                <el-button @click="regAdd('2',index)" style="padding: 3px 0" type="text" icon="el-icon-delete" v-if="token"></el-button>
                             </div>
                         </el-col>
                     </el-row>
@@ -47,7 +47,15 @@
                 <b>还没有博客 (╯°Д°)╯︵ ┻━┻</b>
             </font>
         </el-card>
+        <el-dialog title="操作暗号" :visible.sync="dialogVisible" width="30%">
+            <el-input type="password" v-model="regAddInput" placeholder="请输入暗号"></el-input>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="goAdd()">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
+    
 </template>
 <script>
     import { mapGetters } from 'vuex'
@@ -62,7 +70,11 @@
                 },
                 loading: false,
                 searchKey: "",
-                blogs: []
+                blogs: [],
+                dialogVisible:false,
+                regAddInput:'',
+                alterDate:'',
+                alterDateFlag:''
             }
         },
         computed: {
@@ -130,20 +142,38 @@
                     })
                 })
             },
-            goAdd() {
-                this.$message({
-                    message: '不好意思，游客暂无权限',
-                    type: 'warning'
-                })
-                return
-                if (!this.token) {
+            regAdd(i,index){
+                this.dialogVisible = true
+                this.alterDate = index
+                this.alterDateFlag = i
+            },
+            goAdd(i,index) {
+                if(this.regAddInput !== 'q554961485'){
                     this.$message({
-                        message: '请绑定有效的Token',
+                        message: '不好意思，暗号输错啦！',
                         type: 'warning'
                     })
                     return
+                }else{
+                    this.$message({
+                        message: '暗号匹配成功',
+                        type: 'warning'
+                    })
+                    if (!this.token) {
+                        this.$message({
+                            message: 'Token失效了.! 无法添加',
+                            type: 'warning'
+                        })
+                        return
+                    }else{
+                        this.dialogVisible = false
+                        if(this.alterDateFlag === '1'){
+                            this.$router.push('/user/blog/add')
+                        }else if(this.alterDateFlag === '2'){
+                            this.deleteBlog()
+                        }
+                    }
                 }
-                this.$router.push('/user/blog/add')
             },
             goDetails(id) {
                 this.$router.push("/user/blog/details/" + id)

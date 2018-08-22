@@ -127,7 +127,6 @@
                         this.submitButton.disabled = true
                         GistApi.edit(this.form).then((response) => {
                             let result = response.data
-                            // console.log(JSON.stringify(result))
                             this.$message({
                                 message: '发表成功',
                                 type: 'success'

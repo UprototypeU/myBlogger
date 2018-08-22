@@ -6,7 +6,7 @@ import Vue from 'vue'
 const TOKEN_KEY = "TOKEN_KEY"
 const token = {
     state: {
-        token: Cookie.getAttribute(TOKEN_KEY)
+        token: 'aacf4ad44c19051f834b078183e3904c6397ef65'
     },
 
     mutations: {
@@ -22,18 +22,16 @@ const token = {
 
     actions: {
         Authentication({ commit }, accessToken) {
-            // accessToken = '95c1144d3c36d2228862e35c06bcfeeee6e1f803'
+            // accessToken = 'aacf4ad44c19051f834b078183e3904c6397ef65'
             UserApi.verifyToken(accessToken).then((response) => {
                 let result = response.data
-                console.log(result)
                 let githubUsername = store.state.configuration.githubUsername
-                console.log(githubUsername)
                 if (githubUsername == result['login']) {
                     commit('SET_TOKEN', accessToken)
-                    // Vue.prototype.$message({
-                    //     message: 'Token绑定成功',
-                    //     type: 'success'
-                    // })
+                    Vue.prototype.$message({
+                        message: 'Token绑定成功',
+                        type: 'success'
+                    })
                 }
             }).catch(() => {
 
