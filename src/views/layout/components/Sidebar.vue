@@ -20,10 +20,22 @@
                 <!-- <el-button type="text" @click="cancellation">注销</el-button> -->
             </div>
             <div style="margin-top: 10px;text-align: left">
-                <el-alert title="记录" type="info" description="记录一下技术日志"
+                <!-- <el-alert title="" type="info" description=""
                     :closable="false">
                 </el-alert>
-            </div>
+                <el-alert title="" type="info" description="
+                    :closable="false">
+                </el-alert> -->
+                <el-collapse v-model="activeNames" accordion>
+                    <el-collapse-item title="记录" name="1">
+                        <div>记录一下技术日志</div>
+                    </el-collapse-item>
+                    <el-collapse-item title="推荐" name="2">
+                        <div>非常好的一个前端面试知识点的复习网站： https://yuchengkai.cn; </div>
+                        <div>非常好的一个前端面试知识点的复习网站： https://yuchengkai.cn/docs/zh/frontend/; </div>
+                    </el-collapse-item>
+                </el-collapse>
+            </div> 
         </el-card>
         <token-dialog ref="tokenDialog"></token-dialog>
     </div>
@@ -42,7 +54,8 @@
                 constantRouterMap,
                 active: "",
                 parentUrl: "",
-                menuList: []
+                menuList: [],
+                activeNames: '1'
             }
         },
         computed: {
