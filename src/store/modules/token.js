@@ -6,7 +6,7 @@ import Vue from 'vue'
 const TOKEN_KEY = "TOKEN_KEY"
 const token = {
     state: {
-        token: 'aacf4ad44c19051f834b078183e3904c6397ef65'
+        token: '',
     },
 
     mutations: {
@@ -22,8 +22,7 @@ const token = {
 
     actions: {
         Authentication({ commit }, accessToken) {
-            // accessToken = 'aacf4ad44c19051f834b078183e3904c6397ef65'
-            UserApi.verifyToken(accessToken).then((response) => {
+            UserApi.verifyToken(accessToken).then((response) => {   
                 let result = response.data
                 let githubUsername = store.state.configuration.githubUsername
                 if (githubUsername == result['login']) {

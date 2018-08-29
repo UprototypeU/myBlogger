@@ -37,6 +37,10 @@
                 </el-collapse>
             </div> 
         </el-card>
+        <el-card shadow="never" style="margin-top: 20px;text-align: center">
+            <el-input type="password" placeholder="暗号权限验证" v-model="approveData"></el-input>
+            <el-button plain @click="approve()">认证</el-button>
+        </el-card>
         <token-dialog ref="tokenDialog"></token-dialog>
     </div>
 </template>
@@ -55,7 +59,8 @@
                 active: "",
                 parentUrl: "",
                 menuList: [],
-                activeNames: '1'
+                activeNames: '1',
+                approveData:''
             }
         },
         computed: {
@@ -64,6 +69,8 @@
                 'githubUsername',
                 'mini'
             ])
+        },
+        created() {
         },
         mounted() {
             let arr = this.$route.path.split("/")
@@ -80,6 +87,17 @@
             },
             cancellation() {
                 this.$store.dispatch("Cancellation")
+            },
+            approve(){
+                if(this.approveData === 'q554961485'){
+                    this.$store.dispatch("Authentication",'41637213bd4325644e7737457d0116f96a659333')
+                    this.approveData = ''
+                }else{
+                    this.$message({
+                        message: '暗号错误，认证失败！',
+                        type: 'error'
+                    })
+                }
             }
         }
     }

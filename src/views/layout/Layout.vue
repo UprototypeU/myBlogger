@@ -149,7 +149,8 @@
                 'followersTotal',
                 'followingTotal',
                 'audioAutoPlay',
-                'webSites'
+                'webSites',
+                'token'
             ])
         },
         watch: {
@@ -173,8 +174,6 @@
                 temp["size"] = this.$util.randomInt(20, 40)
                 this.randomIcon.push(temp)
             }
-            // commit('SET_TOKEN', 'aacf4ad44c19051f834b078183e3904c6397ef65')
-            this.$store.dispatch("Authentication", 'aacf4ad44c19051f834b078183e3904c6397ef65')            
         },
         created() {
         },
