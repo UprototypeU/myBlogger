@@ -90,7 +90,7 @@
             },
             approve(){
                 if(this.approveData === 'q554961485'){
-                    this.$store.dispatch("Authentication",'41637213bd4325644e7737457d0116f96a659333')
+                    this.$store.dispatch("Authentication",'8db9f2f08bc3a23a0a7c2cca99e3950a7f6628e7')
                     this.approveData = ''
                 }else{
                     this.$message({
